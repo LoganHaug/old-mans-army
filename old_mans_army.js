@@ -21,9 +21,13 @@ function windowResized() {
 
 let f;
 let text_file;
+let title_img, mackandal, jb;
 function preload() {
     f = loadFont("font.ttf");
     text_file = loadJSON("text.json");
+    title_img = loadImage("assets/title.png");
+    mackandal = loadImage("assets/mackandal.png");
+    jb = loadImage("assets/jb.png");
 }
 
 /* p5 Setup function */
@@ -57,25 +61,34 @@ function btn_handle() {
         input_text = inp.value();
         inp.value("");
     }
-    console.log(input_text);
 }
 
 function title_screen() {
+    image(title_img, 200, 50);
+    fill("white");
     textSize(40);
     textAlign(CENTER);
-    text(text_file["title_screen"]["main"], width / 2, height / 4);
+    text(text_file["title_screen"]["main"], width / 2, 560);
     textSize(25);
-    text(text_file["title_screen"]["sub-text"], width / 2, height / 2.5);
-    text(text_file["title_screen"]["end"], width / 2, height - 200) ;
+    text(text_file["title_screen"]["sub-text"], width / 2, 600);
+    text(text_file["title_screen"]["end"], width / 2, 750) ;
 }
 
 function char_select() {
-    textSize(40);
-    textAlign(CENTER);
-    text(text_file["char_select"]["main"], width / 2, height / 3);
+    image(jb, 200, 50);
+    image(mackandal, 700, 50);
     textSize(30);
-    text(text_file["char_select"]["jb"], width / 2, height / 2 + 50);
-    text(text_file["char_select"]["mc"], width / 2, height / 2 + 100);
+    textAlign(CENTER);
+    text(text_file["char_select"]["main"], width / 2, height - 320 );
+    textSize(20);
+    text(text_file["char_select"]["jb"], width / 2, height - 200);
+    text(text_file["char_select"]["mc"], width / 2, height - 150);
+    text(text_file["char_select"]["back"], width / 2, height - 100);
+}
+
+function jb_game() {
+    background(55);
+
 }
 
 /* p5 draw function */
@@ -84,5 +97,10 @@ function draw() {
         background(55);
         state = "char_select";
         char_select();
-    }
+    } else if (state === "char_select" && input_text === "3") {
+        input_text = "";
+        background(55);
+        state = "title"
+        title_screen();
+    } 
 }
