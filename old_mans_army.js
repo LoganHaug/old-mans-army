@@ -28,6 +28,10 @@ function preload() {
 
 /* p5 Setup function */
 let my_grid, boarders, inp;
+let state;
+let character;
+let button;
+var input_text = "";
 function setup() {
 	// Create the canvas
 	cnv = createCanvas(1200, 800);
@@ -36,15 +40,49 @@ function setup() {
     frameRate(20);
     background(55);
     textFont(f);
+    // Set input field
+    inp = select("#inp");
+
+    // Set input button
+    button = select("#submit");
+    button.mousePressed(btn_handle);
+
+    // start at the title screen
+    title_screen();
+    state = "title"
+}
+
+function btn_handle() {
+    input_text = inp.value();
+    console.log(input_text);
+}
+
+function inp_handle() {
+    }
+
+function title_screen() {
     textSize(40);
-    inp = createInput("");
-    inp.position(windowWidth / 4 - 60,  windowHeight - 50);
-    inp.size(1100);
     textAlign(CENTER);
     text(text_file["title_screen"]["main"], width / 2, height / 4);
+    textSize(25);
+    text(text_file["title_screen"]["sub-text"], width / 2, height / 2.5);
+    text(text_file["title_screen"]["end"], width / 2, height - 200) ;
+}
+
+function char_select() {
+    textSize(40);
+    textAlign(CENTER);
+    text(text_file["char_select"]["main"], width / 2, height / 3);
+    textSize(30);
+    text(text_file["char_select"]["jb"], width / 2, height / 2 + 50);
+    text(text_file["char_select"]["mc"], width / 2, height / 2 + 100);
 }
 
 /* p5 draw function */
 function draw() {
-
+    if (state === "title" && keyIsPressed === true) {
+        background(55);
+        state = "char_select";
+        char_select();
+    }
 }

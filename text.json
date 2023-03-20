@@ -1,5 +1,12 @@
 {
     "title_screen" : {
-        "main" : "Welcome to the fight Captain!"
-    }
+        "main" : "Welcome to the fight Captain!",
+        "sub-text" : "In this game you will lead your troops into battle \nagainst the infernal instituion of slavery,\nmany will die,\ncan you live to prevail at harpers ferry?",
+        "end" : "press any key to continue"
+    },
+    "char_select" : {
+        "main" : "Character Selection\n\nMake a selection using the text box below",
+        "jb" : "1: Old John Brown",
+        "mc" : "2: Mackandal"
+     }
 }
