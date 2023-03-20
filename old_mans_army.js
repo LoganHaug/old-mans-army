@@ -53,12 +53,12 @@ function setup() {
 }
 
 function btn_handle() {
-    input_text = inp.value();
+    if (inp.value() !== "") {
+        input_text = inp.value();
+        inp.value("");
+    }
     console.log(input_text);
 }
-
-function inp_handle() {
-    }
 
 function title_screen() {
     textSize(40);
