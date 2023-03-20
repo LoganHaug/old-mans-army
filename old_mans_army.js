@@ -22,12 +22,15 @@ function windowResized() {
 let f;
 let text_file;
 let title_img, mackandal, jb;
+let audio;
 function preload() {
     f = loadFont("font.ttf");
     text_file = loadJSON("text.json");
     title_img = loadImage("assets/title.png");
     mackandal = loadImage("assets/mackandal.png");
     jb = loadImage("assets/jb.png");
+    audio = createAudio("assets/bg_music.mp3");
+    audio.loop();
 }
 
 /* p5 Setup function */
@@ -35,6 +38,9 @@ let my_grid, boarders, inp;
 let state;
 let character;
 let button;
+let audio_button;
+let audio_state;
+let slider;
 var input_text = "";
 function setup() {
 	// Create the canvas
@@ -51,6 +57,16 @@ function setup() {
     button = select("#submit");
     button.mousePressed(btn_handle);
 
+    // Set audio button
+    audio_button = select("#audio");
+    audio_button.mousePressed(audio_handle);
+    audio_state = "playing";
+
+    // Set volume slider
+    slider = select("#vol");
+    slider.mouseMoved(slider_handle);
+    audio.volume(slider.value() / 150);
+
     // start at the title screen
     title_screen();
     state = "title"
@@ -61,6 +77,20 @@ function btn_handle() {
         input_text = inp.value();
         inp.value("");
     }
+}
+
+function audio_handle() {
+    if (audio_state === "paused") {
+        audio.play();
+        audio_state = "playing";
+    } else if (audio_state === "playing") {
+        audio.pause();
+        audio_state = "paused";
+    }
+}
+
+function slider_handle() {
+    audio.volume(slider.value() / 150);
 }
 
 function title_screen() {
@@ -88,7 +118,6 @@ function char_select() {
 
 function jb_game() {
     background(55);
-
 }
 
 /* p5 draw function */
