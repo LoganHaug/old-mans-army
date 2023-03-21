@@ -1,4 +1,4 @@
-
+// Logan Haug
 function randint(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -131,6 +131,8 @@ function char_select() {
 
 function jb_game() {
     state = "jb_game";
+    fill("white");
+    textSize(20);
     background(55);
     image(jb_map, 150, 50);
     textAlign(LEFT);
@@ -144,6 +146,34 @@ function jb_game() {
     text(text_file["jb_game"]["quit"], width / 8 * 5, height - 125);
 }
 
+function bees() {
+    
+}
+
+function lecompton() {
+
+}
+
+function pottawamie() {
+
+}
+
+function hunt() {
+
+}
+
+function speaking_tour() {
+
+}
+
+function rest() {
+
+}
+
+function stats() {
+
+}
+
 async function transition() {
     background("black");
     fill("grey");
@@ -155,9 +185,11 @@ async function transition() {
         }
         await sleep(30);
     }
-    rect(0, 770, width, 30);
+    await rect(0, 770, width, 30);
     draw_lock();
-    await sleep(400);
+    textSize(50);
+    text(text_file["transition"], width / 2, height * 3 / 4);
+    await sleep(600);
 }
 
 function draw_lock() {
@@ -165,7 +197,7 @@ function draw_lock() {
     rect(width / 2 - 40, height / 2 - 40, 80, 80);
     rect(width / 2 - 30, height / 2 - 80, 10, 40);
     rect(width / 2 + 20, height / 2 - 80, 10, 40);
-    rect(width / 2 - 30, height / 2 -80, 50, 10);
+    rect(width / 2 - 30, height / 2 -80, 30, 10);
 }
 
 function md_game() {
@@ -178,15 +210,17 @@ async function draw() {
     if (state === "title" && keyIsPressed === true) {
         background(55);
         transition();
-        await sleep(1000);
+        await sleep(1500);
         char_select();
     } else if (state === "char_select" && input_text === "3") {
         input_text = "";
         transition();
-        await sleep(1000);
+        await sleep(1500);
         title_screen();
     } else if (state === "char_select" && input_text === "1") {
         input_text = "";
+        transition();
+        await sleep (1500);
         jb_game();
     } else if (state === "char_select" && input_text === "2") {
         input_text = "";

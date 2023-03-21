@@ -10,6 +10,7 @@
         "mc" : "2: Mackandal",
         "back" : "3: go back to title screen"
     },
+    "transition": "Blow ye trumpet-Blow!",
     "jb_game" : {
         "bees" : "1: Hive the bees",
         "slaver_raid" : "2: Strike at the slavers",
