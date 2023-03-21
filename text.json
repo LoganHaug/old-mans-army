@@ -5,9 +5,19 @@
         "end" : "press any key to continue"
     },
     "char_select" : {
-        "main" : "Character Selection\nMake a selection using the text box below",
+        "main" : "Who would you like to play?\nMake a selection using the text box below",
         "jb" : "1: Old John Brown",
         "mc" : "2: Mackandal",
         "back" : "3: go back to title screen"
-     }
+    },
+    "jb_game" : {
+        "bees" : "1: Hive the bees",
+        "slaver_raid" : "2: Strike at the slavers",
+        "free" : "3: Free slaves from a slaver",
+        "hunt" : "4: Acquire food from the environment",
+        "speech" : "5: Go on a speaking tour",
+        "rest" : "6: Let the army rest",
+        "status" : "7: View status of the army",
+        "quit" : "8: quit"
+    }
 }
