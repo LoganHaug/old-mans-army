@@ -20,10 +20,10 @@ function Soldier(name) {
     }
 
     this.step = function(hp_step, decay_step, morale_step, attack_step, defense_step) {
-        this.decay += decay_step;
+        this.decay = decay_step;
         this.hp += this.decay;
         this.morale += morale_step;
-        this.attack += attack_step;
+        this.atk += attack_step;
         this.defense += defense_step;
     }
 

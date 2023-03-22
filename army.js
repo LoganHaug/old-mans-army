@@ -29,28 +29,41 @@ function Army(j) {
         this.equipment_level = 1;
     }
 
+    this.display = function() {
+        var display_str = "AVG ATK: " + this.avg_attack + "\tAVG DEFENSE: " + this.avg_defense;
+        display_str += "\tAVG HP: " + this.avg_hp + "\tAVG MORALE: " + this.avg_morale;
+        display_str += "\tFOOD: " + this.food + "\tEQUIP LVL: " + this.equipment_level + "\n";
+        for (var s in this.soldiers) {
+            display_str += this.soldiers[s].display() + "\n";
+        }
+        if (this.soldiers.length === 0)
+            display_str += "\nNo soldiers to display : (";
+        return display_str;
+    }
+
     this.recruit = function() {    
         var sum_morale = 0, sum_hp = 0, sum_attack = 0, sum_defense = 0;
         var names = [];
         for (var soldier in this.soldiers) {
-            sum_morale += soldier.morale;
-            sum_hp += soldier.hp;
-            sum_attack += soldier.attack;
-            sum_defense += soldier.defense;
-            names.push(soldier.name);
+            sum_morale += this.soldiers[soldier].morale;
+            sum_hp += this.soldiers[soldier].hp;
+            sum_attack += this.soldiers[soldier].atk;
+            sum_defense += this.soldiers[soldier].defense;
+            names.push(this.soldiers[soldier].name);
         }
         for (var name in this.all_names) {
-            if (names.includes(name)) {
-                this.all_names.splice(this.allnames.indexOf(name), 1);
+            if (names.includes(this.all_names[name])) {
+                this.all_names.splice(this.all_names.indexOf(this.all_names[name]), 1);
             }
         }
-        var s = new Soldier(this.all_names[randint(0, this.all_names.length)]);
+        var s = new Soldier(this.all_names[randint(0, this.all_names.length - 1)]);
         this.soldiers.push(s);     
+        console.log(sum_morale);
         var l = this.soldiers.length;
-        avg_morale = (sum_morale + s.morale) / l;
-        avg_hp = (sum_hp + s.hp) / l;
-        avg_attack = (sum_attack + s.attack) / l;
-        avg_defense = (sum_defense + s.defense) / l;
+        this.avg_morale = Math.floor((sum_morale + s.morale) / l);
+        this.avg_hp = Math.floor((sum_hp + s.hp) / l);
+        this.avg_attack = Math.floor((sum_attack + s.atk) / l);
+        this.avg_defense = Math.floor((sum_defense + s.defense) / l);
         return s;
     }
 
@@ -61,6 +74,8 @@ function Army(j) {
             s.step(hp, decay, morale, attack, defense);
         }
         this.food -= this.soldiers.length;
+        if (this.food < 0)
+            this.food = 0;
     }
 
     this.equip = function(upgrade_num) {
@@ -118,5 +133,6 @@ function Army(j) {
         if (this.dead.length > 0) {
             s = this.dead.pop(); 
         }
+        return s;
     }
 }

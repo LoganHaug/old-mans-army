@@ -148,6 +148,10 @@ function jb_game() {
     text(text_file["jb_game"]["quit"], width / 8 * 5, height - 125);
 }
 
+async function graveyard() {
+
+}
+
 async function bees() {
     state = "bees";
     var s = army.recruit();
@@ -157,6 +161,10 @@ async function bees() {
     text(text_file["recruit"], width / 2, height / 3);
     text(s.display(), width / 2, height / 2);
     text("--Press any key to continue--", width / 2, height / 2 + 200);
+    army.step(0, 0, 0, 0);
+    if (army.dead.length > 0) {
+        graveyard();
+    }
 }
 
 function lecompton() {
@@ -180,7 +188,12 @@ function rest() {
 }
 
 function stats() {
-
+    state = "stats";
+    background(55);
+    textAlign(CENTER);
+    textSize(25);
+    text(army.display(), width / 2, 100); 
+    text("--Press any key to continue--", width / 2, height - 100);
 }
 
 async function transition() {
@@ -246,6 +259,9 @@ async function draw() {
             stats();
         }
     } else if (state === "bees" && keyIsPressed) {
+        await transition();
+        jb_game();
+    } else if (state === "stats" && keyIsPressed) {
         await transition();
         jb_game();
     }
