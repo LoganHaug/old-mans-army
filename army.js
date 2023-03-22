@@ -58,7 +58,6 @@ function Army(j) {
         }
         var s = new Soldier(this.all_names[randint(0, this.all_names.length - 1)]);
         this.soldiers.push(s);     
-        console.log(sum_morale);
         var l = this.soldiers.length;
         this.avg_morale = Math.floor((sum_morale + s.morale) / l);
         this.avg_hp = Math.floor((sum_hp + s.hp) / l);
@@ -70,8 +69,8 @@ function Army(j) {
     this.step = function(hp, decay, morale, attack, defense) {
         if (this.food == 0)
             decay -= 10;
-        for (var s in this.solders) {
-            s.step(hp, decay, morale, attack, defense);
+        for (var s in this.soldiers) {
+            this.soldiers[s].step(hp, decay, morale, attack, defense);
         }
         this.food -= this.soldiers.length;
         if (this.food < 0)
@@ -81,7 +80,7 @@ function Army(j) {
     this.equip = function(upgrade_num) {
         this.equipment_level = upgrade_num;
         for (var s in this.soldiers) {
-            s.equip(this.equipment_level);
+            this.soldiers[s].equip(this.equipment_level);
         }
     }
 
@@ -95,7 +94,7 @@ function Army(j) {
         while (this.solders.length > 0 && enemy.solders.length > 0) {
              // This army attacks
             for (var s in this.soldiers) {
-                dmg = s.attack();
+                dmg = this.soldiers[s].attack();
                 if (enemy.soldiers.length > 1) {
                     defender = enemy.soldiers[randint(0, enemy.solders.length-1)];
                 } else if (enemy.soldiers.length == 1) {
@@ -111,7 +110,7 @@ function Army(j) {
             }
             // enemy army attacks 
             for (var s in enemy.soldiers) {
-                dmg = s.atatck();
+                dmg = enemy.soldiers[s].attack();
                 if (this.soldiers.length > 1) {
                     defender = this.soldiers[randint(0, this.soldiers.length-1)];
                 } else if (this.soldiers.length == 1) {
