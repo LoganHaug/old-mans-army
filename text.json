@@ -11,6 +11,11 @@
         "back" : "3: go back to title screen"
     },
     "transition": "Blow ye trumpet-Blow!",
+    "names": ["Edwin Coppock", "John Cook", "Watson Brown", "John Kagi",
+              "William Thompson", "Adolphus Thompson", "Oliver Brown",
+              "Steward Taylor", "William Leeman", "Onion", "Lewis Leary",
+              "Dangerfield Newby", "Jim", "Bob", "John Copeland Jr.", 
+              "Shields Green", "Albert Hazlett", "Aaron Stevens", "Ben"],
     "jb_game" : {
         "bees" : "1: Hive the bees",
         "slaver_raid" : "2: Strike at the slavers",
@@ -20,5 +25,17 @@
         "rest" : "6: Let the army rest",
         "status" : "7: View status of the army",
         "quit" : "8: quit"
+    },
+    "equipment" : {
+        "Sharp's rifle" : 5,
+        "Repeater" : 4,
+        "Colonel Washingtons Broadsword" : 4,
+        "Seven shooter" : 3,
+        "Well kept broadsword" : 3,
+        "Six shooter" : 2,
+        "Rusty broadsword" : 1,
+        "Farming implements" : 1,
+        "Knuckle Dusters" : 1,
+        "Derringer Pepperbox" : 1
     }
 }
