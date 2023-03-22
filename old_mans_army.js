@@ -49,6 +49,7 @@ let audio_button;
 let audio_state;
 let slider;
 var input_text = "";
+var army;
 async function setup() {
 	// Create the canvas
 	cnv = createCanvas(1200, 800);
@@ -78,6 +79,7 @@ async function setup() {
     title_screen();
     state = "title";
     
+    army = new Army(text_file);
 }
 
 function btn_handle() {
@@ -146,8 +148,15 @@ function jb_game() {
     text(text_file["jb_game"]["quit"], width / 8 * 5, height - 125);
 }
 
-function bees() {
-    
+async function bees() {
+    state = "bees";
+    var s = army.recruit();
+    background(55);
+    textSize(30);
+    textAlign(CENTER);
+    text(text_file["recruit"], width / 2, height / 3);
+    text(s.display(), width / 2, height / 2);
+    text("--Press any key to continue--", width / 2, height / 2 + 200);
 }
 
 function lecompton() {
@@ -167,7 +176,7 @@ function speaking_tour() {
 }
 
 function rest() {
-
+    
 }
 
 function stats() {
@@ -186,7 +195,8 @@ async function transition() {
         await sleep(30);
     }
     await rect(0, 770, width, 30);
-    draw_lock();
+    await sleep(200);
+    await draw_lock();
     textSize(50);
     text(text_file["transition"], width / 2, height * 3 / 4);
     await sleep(600);
@@ -200,33 +210,44 @@ function draw_lock() {
     rect(width / 2 - 30, height / 2 -80, 30, 10);
 }
 
-function md_game() {
-    state = "md_game";
-    background(55);
-}
 
 /* p5 draw function */
 async function draw() {
     if (state === "title" && keyIsPressed === true) {
         background(55);
-        transition();
-        await sleep(1500);
-        char_select();
-    } else if (state === "char_select" && input_text === "3") {
-        input_text = "";
-        transition();
-        await sleep(1500);
-        title_screen();
-    } else if (state === "char_select" && input_text === "1") {
-        input_text = "";
-        transition();
-        await sleep (1500);
+        await transition();
         jb_game();
-    } else if (state === "char_select" && input_text === "2") {
-        input_text = "";
-        md_game();
-    } else if (state === "jb_game" && input_text === "8") {
-        input_text = "";
-        title_screen();
+    } else if (state === "jb_game") {
+        if (input_text === "8") {
+            input_text = "";
+            army.reset();
+            await transition();
+            title_screen();
+        } else if (input_text === "1") {
+            input_text = "";
+            bees();
+        } else if (input_text === "2") {
+            input_text = "";
+            lecompton();
+        } else if (input_text === "3") {
+            input_text = "";
+            pottawamie(); 
+        } else if (input_text === "4") {
+            input_text = "";
+            hunt();
+        } else if (input_text === "5") {
+            input_text = "";
+            speaking_tour();
+        } else if (input_text === "6") {
+            input_text = "";
+            rest();
+        } else if (input_text === "7") {
+            input_text = "";
+            stats();
+        }
+    } else if (state === "bees" && keyIsPressed) {
+        await transition();
+        jb_game();
     }
+
 }

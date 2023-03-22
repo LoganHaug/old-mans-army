@@ -17,10 +17,10 @@
               "Dangerfield Newby", "Jim", "Bob", "John Copeland Jr.", 
               "Shields Green", "Albert Hazlett", "Aaron Stevens", "Ben"],
     "jb_game" : {
-        "bees" : "1: Hive the bees",
-        "slaver_raid" : "2: Strike at the slavers",
-        "free" : "3: Free slaves from a slaver",
-        "hunt" : "4: Acquire food from the environment",
+        "bees" : "1: Recruit Soldiers",
+        "slaver_raid" : "2: Attack the slavers at LeCompton",
+        "free" : "3: Free slaves along the Pottawamie",
+        "hunt" : "4: Hunt",
         "speech" : "5: Go on a speaking tour",
         "rest" : "6: Let the army rest",
         "status" : "7: View status of the army",
@@ -37,5 +37,6 @@
         "Farming implements" : 1,
         "Knuckle Dusters" : 1,
         "Derringer Pepperbox" : 1
-    }
+    },
+    "recruit" : "Successfully Recruited a soldier!\nName\tHP/HP_MAX ATK DEFENSE MORALE"
 }

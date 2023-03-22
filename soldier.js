@@ -4,19 +4,18 @@ function randint(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function soldier(name) {
+function Soldier(name) {
     this.hp_max = randint(80, 100);
-    this.hp = hp_max - randint(0, 15);
+    this.hp = this.hp_max - randint(0, 15);
     this.morale = randint(50, 100);
-    this.attack = randint(0, 10);
-    this.defense = randint(0, 10);
+    this.atk = randint(2, 10);
+    this.defense = randint(2, 10);
     this.equipment;
     this.name = name;
     this.decay;
 
     this.display = function() {
-        var display_str = this.name + " " + this.hp + "/" + this.hp_max + " ";
-        display_str += "" + this.attack + " " + this.defense + " " + this.morale;
+        var display_str = this.name + "\t" + this.hp + "/" + this.hp_max + "\t" + this.atk + "\t" + this.defense + "\t" + this.morale;
         return display_str; 
     }
 
@@ -29,7 +28,7 @@ function soldier(name) {
     }
 
     this.attack = function() {
-        return this.attack * this.equipment * (randint(50, 120) / 100);
+        return this.atk * this.equipment * (randint(50, 120) / 100);
     }
 
     this.defend = function(damage) {
