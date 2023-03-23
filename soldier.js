@@ -15,15 +15,14 @@ function Soldier(name) {
     this.decay;
 
     this.display = function() {
-        var display_str = this.name + "\t" + this.hp + "/" + this.hp_max + "\t" + this.atk + "\t" + this.defense + "\t" + this.morale;
-        return display_str; 
+        return this.name + "\t" + this.hp + "/" + this.hp_max + "\t" + this.atk + "\t" + this.defense + "\t" + this.morale;
     }
 
     this.step = function(hp_step, decay_step, morale_step, attack_step, defense_step) {
         this.decay = decay_step;
-        console.log(this.hp);
         this.hp += this.decay;
-        console.log(this.hp);
+        if (this.hp < 0)
+            this.hp = 0;
         this.morale += morale_step;
         this.atk += attack_step;
         this.defense += defense_step;

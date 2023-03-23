@@ -33,6 +33,7 @@ function Army(j) {
         var display_str = "AVG ATK: " + this.avg_attack + "\tAVG DEFENSE: " + this.avg_defense;
         display_str += "\tAVG HP: " + this.avg_hp + "\tAVG MORALE: " + this.avg_morale;
         display_str += "\tFOOD: " + this.food + "\tEQUIP LVL: " + this.equipment_level + "\n";
+        display_str += "\nName | HP | ATK | DEFENSE | MORALE\n";
         for (var s in this.soldiers) {
             display_str += this.soldiers[s].display() + "\n";
         }

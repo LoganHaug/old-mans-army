@@ -154,17 +154,21 @@ async function graveyard() {
 
 async function bees() {
     state = "bees";
-    var s = army.recruit();
     background(55);
     textSize(30);
     textAlign(CENTER);
-    text(text_file["recruit"], width / 2, height / 3);
-    text(s.display(), width / 2, height / 2);
-    text("--Press any key to continue--", width / 2, height / 2 + 200);
-    army.step(0, 0, 0, 0);
-    if (army.dead.length > 0) {
-        graveyard();
+    if (army.soldiers.length < 16) {
+        var s = army.recruit();
+        text(text_file["recruit"], width / 2, height / 3);
+        text(s.display(), width / 2, height / 2);
+        army.step(0, 0, 0, 0, 0);
+        if (army.dead.length > 0) {
+            graveyard();
+        }
+    } else {
+        text(text_file["recruit_fail"], width / 2, height / 2);
     }
+    text("--Press any key to continue--", width / 2, height / 2 + 200);
 }
 
 function lecompton() {

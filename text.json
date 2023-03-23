@@ -38,5 +38,6 @@
         "Knuckle Dusters" : 1,
         "Derringer Pepperbox" : 1
     },
-    "recruit" : "Successfully Recruited a soldier!\nName\tHP/HP_MAX ATK DEFENSE MORALE"
+    "recruit" : "Successfully Recruited a soldier!\nName\tHP/HP_MAX ATK DEFENSE MORALE",
+    "recruit_fail" : "Failed to recruit a soldier: too many soldiers in the army!"
 }
