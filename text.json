@@ -42,5 +42,7 @@
     "hunt" : "You successfully hunt around the ossawatamie creeks and find food!",
     "hunt_fail" : "You dont have any soldiers to hunt with!",
     "rest" : "You allow the men to sleep their troubles away\nThe sun brings in a new day",
-    "rest_fail" : "Old Man Brown needs no sleep!"
+    "rest_fail" : "Old Man Brown needs no sleep!",
+    "pottawamie_success" : "You roam the countryside for slave owners...\n and manage to free ",
+    "pottawamie_failure" : "You roam the countryside for slave owners...\n but they defeat your army in battle!"
 }

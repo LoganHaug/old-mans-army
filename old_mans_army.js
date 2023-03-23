@@ -174,7 +174,12 @@ function lecompton() {
 }
 
 function pottawamie() {
-
+    state = "pottawamie";
+    var enemy = new Army(text_file);
+    for (var i = 0; i < randint(1, 5); i++) {
+        enemy.recruit();
+    }
+    army.battle(enemy);
 }
 
 function hunt() {
