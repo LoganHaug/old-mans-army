@@ -4,18 +4,17 @@
         "sub-text" : "Are you ready to lead your troops into battle \nagainst the infernal instituion of slavery?\n\ncan you live to prevail at harpers ferry?",
         "end" : "press any key to continue"
     },
-    "char_select" : {
-        "main" : "Who would you like to play?\nMake a selection using the text box below",
-        "jb" : "1: Old John Brown",
-        "mc" : "2: Mackandal",
-        "back" : "3: go back to title screen"
-    },
     "transition": "Blow ye trumpet-Blow!",
     "names": ["Edwin Coppock", "John Cook", "Watson Brown", "John Kagi",
               "William Thompson", "Adolphus Thompson", "Oliver Brown",
               "Steward Taylor", "William Leeman", "Onion", "Lewis Leary",
-              "Dangerfield Newby", "Jim", "Bob", "John Copeland Jr.", 
-              "Shields Green", "Albert Hazlett", "Aaron Stevens", "Ben"],
+              "Dangerfield Newby", "Jim", "John Copeland Jr.", 
+              "Shields Green", "Albert Hazlett", "Aaron Stevens", "Ben", 
+              "OP Anderson"],
+    "flight" : ["Dangerfield Newby", "Shields Green", "Onion", "OP Anderson",
+                "John Copeland Jr.", "Ben", "Bob"],
+    "death" : "John Brown sighed, he pulled a feather off the Good Lord Bird, and rose\n'God sees it' (McBride 122)\n Rest in peace: ",
+    "flight_death" : "His ties fell and the black man's body shot up into the air,\nflying overhead before disappearing (Carpentier 33)\nBy the power of Mackandal, you are now free: ",
     "jb_game" : {
         "bees" : "1: Recruit Soldiers",
         "slaver_raid" : "2: Attack the slavers at LeCompton",
@@ -39,5 +38,9 @@
         "Derringer Pepperbox" : 1
     },
     "recruit" : "Successfully Recruited a soldier!\nName\tHP/HP_MAX ATK DEFENSE MORALE",
-    "recruit_fail" : "Failed to recruit a soldier: too many soldiers in the army!"
+    "recruit_fail" : "Failed to recruit a soldier: too many soldiers in the army!",
+    "hunt" : "You successfully hunt around the ossawatamie creeks and find food!",
+    "hunt_fail" : "You dont have any soldiers to hunt with!",
+    "rest" : "You allow the men to sleep their troubles away\nThe sun brings in a new day",
+    "rest_fail" : "Old Man Brown needs no sleep!"
 }

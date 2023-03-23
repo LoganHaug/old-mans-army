@@ -9,6 +9,7 @@ function randint(min, max) {
 function Army(j) {
     this.soldiers = [];
     this.dead = [];
+    this.graveyard = []
     this.food = randint(5,10);
     this.avg_hp = 0;
     this.avg_attack = 0;
@@ -20,6 +21,7 @@ function Army(j) {
     this.reset = function() {
         this.soldiers = [];
         this.dead = [];
+        this.graveyard = [];
         this.food = randint(5,10);
         this.avg_hp = 0;
         this.avg_attack = 0;
@@ -54,7 +56,10 @@ function Army(j) {
         }
         for (var name in this.all_names) {
             if (names.includes(this.all_names[name])) {
-                this.all_names.splice(this.all_names.indexOf(this.all_names[name]), 1);
+                this.all_names.splice(name, 1);
+            }
+            if (this.graveyard.includes(this.all_names[name])) {
+                this.all_names.splice(name, 1);
             }
         }
         var s = new Soldier(this.all_names[randint(0, this.all_names.length - 1)]);
@@ -67,15 +72,28 @@ function Army(j) {
         return s;
     }
 
-    this.step = function(hp, decay, morale, attack, defense) {
+    // returns true if there soldiers have died, false otherwise
+    this.step = function(hp, morale, attack, defense) {
         if (this.food == 0)
-            decay -= 10;
+            hp -= 10;
         for (var s in this.soldiers) {
-            this.soldiers[s].step(hp, decay, morale, attack, defense);
+            this.soldiers[s].step(hp, morale, attack, defense);
         }
         this.food -= this.soldiers.length;
         if (this.food < 0)
             this.food = 0;
+        var s_obj;
+        for (var s in this.soldiers) {
+            s_obj = this.soldiers[s];
+            if (s_obj.hp === 0) {
+                this.soldiers.splice(s, 1);
+                this.dead.push(s_obj);
+            }
+        }
+        if (this.dead.length > 0) {
+            return true;
+        }
+        return false;
     }
 
     this.equip = function(upgrade_num) {
@@ -86,7 +104,7 @@ function Army(j) {
     }
 
     this.hunt = function() {
-        this.food += this.soldiers.length * randint(1,2);
+        this.food += this.soldiers.length * randint(1,4);
     }
 
     this.battle = function(enemy) {
@@ -105,7 +123,6 @@ function Army(j) {
                 }
                 defender.defend(dmg);
                 if (defender.hp == 0) {
-                    
                     enemy.soldiers.splice(enemy.soldiers.indexOf(defender), 1);
                 }
             }
@@ -129,10 +146,13 @@ function Army(j) {
     }
 
     this.bury = function() {
-        var s;
-        if (this.dead.length > 0) {
-            s = this.dead.pop(); 
+        var b_obj;
+        for (var b in this.dead) {
+            b_obj = this.dead[b]; 
+            if (!j["flight"].includes(b_obj.name)) {
+                this.graveyard.push(b_obj.name);
+            }
+            this.dead.splice(b, 1);
         }
-        return s;
     }
 }

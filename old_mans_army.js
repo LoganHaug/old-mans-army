@@ -25,15 +25,16 @@ function windowResized() {
 
 let f;
 let text_file;
-let title_img, mackandal, jb, jb_map;
+let title_img, jb, jb_map, headstone, mackandal;
 let audio;
 function preload() {
-    f = loadFont("font.ttf");
+    f = loadFont("assets/font.ttf");
     text_file = loadJSON("text.json");
     title_img = loadImage("assets/title.png");
-    mackandal = loadImage("assets/mackandal.png");
     jb = loadImage("assets/jb.png");
     jb_map = loadImage("assets/jb_map.png");
+    headstone = loadImage("assets/headstone.png");
+    mackandal = loadImage("assets/mackandal.png");
     audio = createAudio("assets/bg_music.mp3");
     audio.loop();
 }
@@ -148,27 +149,24 @@ function jb_game() {
     text(text_file["jb_game"]["quit"], width / 8 * 5, height - 125);
 }
 
-async function graveyard() {
-
-}
-
 async function bees() {
     state = "bees";
     background(55);
     textSize(30);
     textAlign(CENTER);
+    var b = false;
     if (army.soldiers.length < 16) {
         var s = army.recruit();
         text(text_file["recruit"], width / 2, height / 3);
         text(s.display(), width / 2, height / 2);
-        army.step(0, 0, 0, 0, 0);
-        if (army.dead.length > 0) {
-            graveyard();
-        }
+        b = army.step(0, 0, 0, 0);
     } else {
         text(text_file["recruit_fail"], width / 2, height / 2);
     }
     text("--Press any key to continue--", width / 2, height / 2 + 200);
+    if (b) {
+        state = "funeral";
+    }
 }
 
 function lecompton() {
@@ -180,7 +178,22 @@ function pottawamie() {
 }
 
 function hunt() {
-
+    state = "hunt";
+    background(55);
+    textSize(30);
+    textAlign(CENTER);
+    var b = false;
+    if (army.soldiers.length > 0) {
+        army.hunt();
+        text(text_file["hunt"], width / 2, height / 2);
+        b = army.step(5, 5, 1, 0);
+    } else {
+        text(text_file["hunt_fail"], width / 2, height / 2);
+    }
+    text("--Press any key to continue--", width / 2, height - 100);
+    if (b) {
+        state = "funeral";
+    }
 }
 
 function speaking_tour() {
@@ -188,7 +201,21 @@ function speaking_tour() {
 }
 
 function rest() {
-    
+    background(55);
+    textSize(30);
+    textAlign(CENTER);
+    state = "rest";
+    var b = false;
+    if (army.soldiers.length > 0 ) {
+        b = army.step(30, 10, -1, -1);
+        text(text_file["rest"], width / 2, height / 2);
+    } else  {
+        text(text_file["rest_fail"], width / 2, height / 2);
+    }
+    text("--Press any key to continue--", width / 2, height - 100);
+    if (b) {
+        state = "funeral";
+    }
 }
 
 function stats() {
@@ -205,6 +232,7 @@ async function transition() {
     fill("grey");
     noStroke();
     rect(0, 0, width, 30);
+    textAlign(CENTER);
     for (var i = 0; i < 20; i++) {
         for (var j = 0; j < 10; j++) {
             rect(1200 / 10 * j + 50, 800 / 20 * i + 30, 20, 77);  
@@ -224,9 +252,33 @@ function draw_lock() {
     rect(width / 2 - 40, height / 2 - 40, 80, 80);
     rect(width / 2 - 30, height / 2 - 80, 10, 40);
     rect(width / 2 + 20, height / 2 - 80, 10, 40);
-    rect(width / 2 - 30, height / 2 -80, 30, 10);
+    rect(width / 2 - 30, height / 2 - 80, 30, 10);
 }
 
+async function funeral() {
+    textAlign(CENTER);
+    textSize(25);
+    fill("white");
+    state = "funeral_playing";
+ 
+    var b_obj;
+    for (var b in army.dead) {
+        background("black");
+        b_obj = army.dead[b];
+        // Flight instead of death
+        if (text_file["flight"].includes(b_obj.name)) {
+            image(mackandal, width / 2 - 150, 100);
+            text(text_file["flight_death"] + b_obj.name, width / 2, height - 200);
+        } else {
+            image(headstone, 200, 50);
+            text(text_file["death"] + b_obj.name, width / 2,  height - 100);
+        }
+        await sleep(7000);
+        clear();
+    }
+    army.bury();
+    jb_game();
+}
 
 /* p5 draw function */
 async function draw() {
@@ -268,6 +320,14 @@ async function draw() {
     } else if (state === "stats" && keyIsPressed) {
         await transition();
         jb_game();
+    } else if (state === "hunt" && keyIsPressed) {
+        await transition();
+        jb_game();
+    } else if (state === "rest" && keyIsPressed) {
+        await transition();
+        jb_game();
+    } else if (state === "funeral" && keyIsPressed) {
+        await transition();
+        await funeral();
     }
-
 }
