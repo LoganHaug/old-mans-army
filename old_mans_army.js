@@ -134,6 +134,11 @@ function char_select() {
 
 function jb_game() {
     state = "jb_game";
+    // Check for conditions of game over
+    if (army.soldiers.length > 0 && army.avg_morale < 10) {
+        game_over();
+        return;
+    }
     fill("white");
     textSize(20);
     background(55);
@@ -146,7 +151,9 @@ function jb_game() {
     text(text_file["jb_game"]["speech"], width / 8 * 5, height - 170);
     text(text_file["jb_game"]["rest"], width / 8 * 5, height - 155);
     text(text_file["jb_game"]["status"], width / 8 * 5, height - 140);
-    text(text_file["jb_game"]["quit"], width / 8 * 5, height - 125);
+    text(text_file["jb_game"]["ferry"], width / 8 * 5, height - 125);
+    textAlign(CENTER);
+    text(text_file["jb_game"]["quit"], width / 2, height - 100);
 }
 
 async function bees() {
@@ -170,16 +177,85 @@ async function bees() {
 }
 
 function lecompton() {
+    state = "lecompton";
+    background(55);
+    textSize(30);
+    textAlign(CENTER);
+    fill("white");
+    
+    if (army.soldiers.length < 3) {
+        text(text_file["lecompton_small"], width / 2, height / 2);
+    } else {
+        var enemy = new Army(text_file);
+        var num_soldiers = randint(5, 10) + army.infamy;
 
+        for (var i = 0; i < num_soldiers; i++) {
+            s = enemy.recruit();
+            console.log(s);
+        }
+        army.battle(enemy);
+
+        if (army.soldiers.length > 0) {
+            text(text_file["lecompton_success"], width / 2, height / 2);
+        } else {
+            text(text_file["lecompton_failure"], width / 2, height / 2);
+            state = "lecompton_failure";
+        }
+        if (army.step(0, 20, 4, 4)) {
+            state = "funeral";
+        }
+    }
+    army.infamy += randint(3,4);
+    army.equipment_level += 1;
+    army.equip(army.equipment_level);
+    text("--Press any key to continue--", width / 2, height / 2 + 200);
+ 
 }
 
 function pottawamie() {
     state = "pottawamie";
-    var enemy = new Army(text_file);
-    for (var i = 0; i < randint(1, 5); i++) {
-        enemy.recruit();
+    background(55);
+    textSize(30);
+    textAlign(CENTER);
+    fill("white");
+    
+    if (army.soldiers.length < 3) {
+        text(text_file["pottawamie_small"], width / 2, height / 2);
+    } else {
+        var enemy = new Army(text_file);
+        var num_soldiers = randint(1, 5) + army.infamy;
+
+        for (var i = 0; i < num_soldiers; i++) {
+            s = enemy.recruit();
+            console.log(s);
+        }
+        army.battle(enemy);
+
+        if (army.soldiers.length > 0) {
+            text(text_file["pottawamie_success"], width / 2, height / 2);
+        } else {
+            text(text_file["pottawamie_failure"], width / 2, height / 2);
+            state = "pottawamie_failure";
+        }
+        if (army.step(0, 10, 2, 2)) {
+            state = "funeral";
+        }
     }
-    army.battle(enemy);
+    army.infamy += randint(1,2);
+    text("--Press any key to continue--", width / 2, height / 2 + 200);
+}
+
+function ferry() {
+    state = "ferry";
+    if (army.avg_attack < 6 || army.avg_defense < 6 || army.equipment_level < 3) {
+        background(55);
+        textSize(30);
+        textAlign(CENTER);
+        text(text_file["ferry_fail"], width / 2, height / 2 - 50);
+        text("--Press any key to continue--", width / 2, height / 2 + 200);
+    } else {
+        game_over(); 
+    }
 }
 
 function hunt() {
@@ -202,10 +278,18 @@ function hunt() {
 }
 
 function speaking_tour() {
+    background(55);
+    textSize(30);
+    textAlign(CENTER);
+    fill("white");
 
+    state = "speaking_tour";
+    text(text_file["speaking_tour"], width / 2, 200);
+    text("--Press any key to continue--", width / 2, height - 100);
+    army.step(0, -10, -1, -1);
 }
 
-function rest() {
+function rest() { 
     background(55);
     textSize(30);
     textAlign(CENTER);
@@ -261,6 +345,7 @@ function draw_lock() {
 }
 
 async function funeral() {
+    background("black");
     textAlign(CENTER);
     textSize(25);
     fill("white");
@@ -278,11 +363,38 @@ async function funeral() {
             image(headstone, 200, 50);
             text(text_file["death"] + b_obj.name, width / 2,  height - 100);
         }
+        army.step(0, -10, 0, 0);
         await sleep(7000);
         clear();
     }
     army.bury();
-    jb_game();
+    if (army.soldiers.length === 0) {
+        game_over();
+    } else {
+        jb_game();
+    }
+}
+
+function game_over() {
+    background("black");
+    textAlign(CENTER);
+    textSize(25);
+    fill("white");
+    state = "game_over";
+    // morale defeat
+    if (army.avg_morale < 20) {
+        text(text_file["morale_defeat"], width / 2, height / 2);
+    }
+    // death defeat
+    else if (army.soldiers.length === 0) {
+        text(text_file["death_defeat"], width / 2, height / 2);
+    }
+    // harpers ferry defeat
+    else {
+        text(text_file["ferry"], width / 2, 100);
+    }
+    text("--Press any key to continue--", width / 2, height - 100);
+    army.reset();
 }
 
 /* p5 draw function */
@@ -292,7 +404,7 @@ async function draw() {
         await transition();
         jb_game();
     } else if (state === "jb_game") {
-        if (input_text === "8") {
+        if (input_text === "9") {
             input_text = "";
             army.reset();
             await transition();
@@ -318,6 +430,9 @@ async function draw() {
         } else if (input_text === "7") {
             input_text = "";
             stats();
+        } else if (input_text === "8") {
+            input_text = "";
+            ferry();
         }
     } else if (state === "bees" && keyIsPressed) {
         await transition();
@@ -334,5 +449,21 @@ async function draw() {
     } else if (state === "funeral" && keyIsPressed) {
         await transition();
         await funeral();
+    } else if (state === "pottawamie" && keyIsPressed) {
+        await transition();
+        jb_game();
+    } else if (state === "lecompton" && keyIsPressed) {
+        await transition();
+        jb_game();
+    }else if (state === "game_over" && keyIsPressed) {
+        await transition();
+        army.reset();
+        title_screen();
+    } else if (state === "speaking_tour" && keyIsPressed) {
+        await transition();
+        jb_game();
+    } else if (state === "ferry" && keyIsPressed) {
+        await transition();
+        jb_game();
     }
 }

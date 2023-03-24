@@ -1,7 +1,7 @@
 {
     "title_screen" : {
         "main" : "Welcome to the fight Captain!",
-        "sub-text" : "Are you ready to lead your troops into battle \nagainst the infernal instituion of slavery?\n\ncan you live to prevail at harpers ferry?",
+        "sub-text" : "Are you ready to lead your troops into battle \nagainst the infernal instituion of slavery?\n\nCan you live to prevail at harpers ferry?",
         "end" : "press any key to continue"
     },
     "transition": "Blow ye trumpet-Blow!",
@@ -23,7 +23,8 @@
         "speech" : "5: Go on a speaking tour",
         "rest" : "6: Let the army rest",
         "status" : "7: View status of the army",
-        "quit" : "8: quit"
+        "ferry" : "8: Attack Harper's ferry",
+        "quit" : "9: quit"
     },
     "equipment" : {
         "Sharp's rifle" : 5,
@@ -43,6 +44,15 @@
     "hunt_fail" : "You dont have any soldiers to hunt with!",
     "rest" : "You allow the men to sleep their troubles away\nThe sun brings in a new day",
     "rest_fail" : "Old Man Brown needs no sleep!",
-    "pottawamie_success" : "You roam the countryside for slave owners...\n and manage to free ",
-    "pottawamie_failure" : "You roam the countryside for slave owners...\n but they defeat your army in battle!"
+    "pottawamie_success" : "You roam the countryside for slave owners...\n and manage to free the slaves they kept",
+    "pottawamie_failure" : "You roam the countryside for slave owners...\n but they defeat your army in battle!",
+    "pottawamie_small" : "Your army is too small to take on this battle (army size > 3)",
+    "lecompton_success" : "You strike at the border ruffians at Lecompton...\nAnd you push them back!\nYou receive their sharps rifles they left behind",
+    "lecompton_failure" : "You strike at the border ruffians at Lecompton...\n but they defeat your army in battle!",
+    "lecompton_small" : "Your army is too small to take on this battle (army size > 8)",
+    "ferry" : "Game Over :(\nEven when you did everything right,\n your ragtag bunch was no match for the might of the US Army\nThe truth is that there is nothing that you can do to win this fight\nMost of your men die in the initial confrontation,\nsome escape, and the rest are hung at the gallows\nAs your body lays a-mouldering in the grave, the civil war begins,\nAfter a bloody tenuous conflict slavery is abolished in the USA\nBut the ghost lingers on...",
+    "ferry_fail" : "Your army is not prepared for this fight!\n(10 soldiers, avg atk > 6, avg defense > 6, equipment level > 3)",
+    "morale_defeat" : "Game Over :(\nYour actions have crushed the spirits of your men and they all abandon you\n(Make sure you keep them well fed next time)",
+    "death_defeat" : "Game Over :(\nAll of your men have perished or escaped from the shackles that bind\n(Start with option 3 and repeat it several times next time)",
+    "speaking_tour" : "You go on a speaking tour across the northern states,\nrasing funds as you go,\nAll seems well when suddenly the federals show up to arrest you!\nFortunately for you the agent put on too much pomade,\nand you smell the scent of a bear\nYou make it out, but the funds are lost :(\n\nThe federals have raised the bounty on your head, so watch out!"
 }

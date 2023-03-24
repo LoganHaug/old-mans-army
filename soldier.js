@@ -6,11 +6,11 @@ function randint(min, max) {
 
 function Soldier(name) {
     this.hp_max = randint(80, 100);
-    this.hp = 0; // this.hp_max - randint(0, 15);
+    this.hp = this.hp_max - randint(0, 15);
     this.morale = randint(50, 100);
     this.atk = randint(2, 10);
     this.defense = randint(2, 10);
-    this.equipment;
+    this.equipment = 1;
     this.name = name;
 
     this.display = function() {
@@ -24,19 +24,25 @@ function Soldier(name) {
         else if (this.hp > this.hp_max)
             this.hp = this.hp_max;
         this.morale += morale_step;
+        if (this.morale > 100)
+            this.morale = 100;
         this.atk += attack_step;
+        if (this.atk < 0)
+            this.atk = 0;
         this.defense += defense_step;
+        if (this.defense < 0)
+            this.defense = 0;
     }
 
     this.attack = function() {
-        return this.atk * this.equipment * (randint(50, 120) / 100);
+        return Math.floor(this.atk * this.equipment * (randint(50, 120) / 100));
     }
 
     this.defend = function(damage) {
         if (damage - this.defense < 0) {
-            damage = 0;
+            damage = 1;
         } else {
-            damage -= defense;
+            damage -= this.defense;
         }
         this.hp -= damage;
         if (this.hp < 0)
@@ -44,6 +50,6 @@ function Soldier(name) {
     }
 
     this.equip = function(e) {
-        this.equipment += e;
+        this.equipment = e;
     }
 }
